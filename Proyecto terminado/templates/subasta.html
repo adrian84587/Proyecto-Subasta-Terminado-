@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Subastas</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/subasta.css') }}">
+
+</head>
+<body>
+    <h1>Subastas</h1>
+
+    <a href="{{ url_for('logout') }}" class="logout-button">Cerrar sesión</a>
+<div class="products-container">
+    {% for producto in productos %}
+    <div class="product">
+            <h3>{{ producto.nombre }}</h3>
+            <p>{{ producto.descripcion }}</p>
+            <p>Precio Actual: $<span id="precio-{{ producto.id }}">{{ producto.precio_actual }}</span></p>
+            <p>Tiempo Restante: <span id="tiempo-restante-{{ producto.id }}"></span></p>
+        
+        {% if producto.imagen %}
+            <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" alt="Imagen de {{ producto.nombre }}" style="max-width: 200px;">
+        {% else %}
+            <p>No hay imagen disponible.</p>
+        {% endif %}
+            <input type="number" id="puja-{{ producto.id }}" placeholder="Ingrese su puja">
+            <button onclick="enviarPuja({{ producto.id }})">Pujar</button>
+    </div>
+
+        <script>
+            document.getElementById('tiempo-restante-{{ producto.id }}').setAttribute('data-fin', "{{ producto.tiempo_fin.isoformat() }}");
+        </script>
+    {% endfor %}
+</div>
+    <script>
+        const socket = io();
+
+        function enviarPuja(productoId) {
+            const inputPuja = document.getElementById(`puja-${productoId}`);
+            const nuevaPuja = parseFloat(inputPuja.value);
+
+            if (nuevaPuja) {
+                socket.emit('puja', {
+                    producto_id: productoId,
+                    nueva_puja: nuevaPuja,
+                    usuario: "{{ session['usuario_id'] }}"
+                });
+                inputPuja.value = '';  // 
+            } else {
+                alert("Por favor, ingresa un valor válido para la puja.");
+            }
+        }
+
+        socket.on('actualizar_puja', function(data) {
+            const precioElement = document.getElementById(`precio-${data.producto_id}`);
+            if (precioElement) {
+                precioElement.textContent = data.nueva_puja.toFixed(2);
+            }
+        });
+
+        function actualizarTiemposRestantes() {
+            document.querySelectorAll('[id^="tiempo-restante-"]').forEach(function(element) {
+                const tiempoFin = new Date(element.getAttribute('data-fin'));
+                const ahora = new Date();
+                const diferencia = tiempoFin - ahora;
+
+                if (diferencia > 0) {
+                    const horas = Math.floor(diferencia / (1000 * 60 * 60));
+                    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+                    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+                    element.textContent = `${horas}h ${minutos}m ${segundos}s`;
+                } else {
+                    element.textContent = "Finalizado";
+                }
+            });
+        }           
+       
+        setInterval(actualizarTiemposRestantes, 1000);
+    </script>
+</body>
+</html>

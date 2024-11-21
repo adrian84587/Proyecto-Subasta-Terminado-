@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <div class="container">
+        
+        <div id="login-form" class="form-container active">
+            <h2 class="login-title">Iniciar Sesión</h2>
+            <form method="post">
+                <input type="hidden" name="login">
+                <div class="input-box">
+                    <input type="email" name="email" placeholder="Correo Electrónico" required>
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <i class="fa fa-lock"></i>
+                </div>
+                <button type="submit" class="login-button">Iniciar Sesión</button>
+            </form>
+            <p class="dont-have-an-account">¿No tienes cuenta? <a href="#" onclick="toggleForms()">Regístrate aquí</a></p>
+        </div>
+
+    
+        <div id="register-form" class="form-container">
+            <h2 class="login-title">Registro</h2>
+            <form method="post">
+                <input type="hidden" name="register">
+                <div class="input-box">
+                    <input type="text" name="nombre" placeholder="Nombre" required>
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="input-box">
+                    <input type="email" name="email" placeholder="Correo Electrónico" required>
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <i class="fa fa-lock"></i>
+                </div>
+                <button type="submit" class="login-button">Registrarse</button>
+            </form>
+            <p class="dont-have-an-account">¿Ya tienes cuenta? <a href="#" onclick="toggleForms()">Inicia sesión aquí</a></p>
+        </div>
+    </div>
+
+    <script>
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            loginForm.classList.toggle('active');
+            registerForm.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

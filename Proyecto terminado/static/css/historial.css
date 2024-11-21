@@ -1,0 +1,119 @@
+/* Estilo general */
+h1, h2{
+    font-family: "Poppins", sans-serif; /* Fuente consistente */
+    color: #000; /* Color negro para todos */
+    text-align: center; /* Alineación centrada */
+    font-weight: bold; /* Estilo en negrita */
+    margin-bottom: 20px; /* Espaciado uniforme debajo del título */
+    margin-top: 0; /* Elimina márgenes superiores */
+}
+h1 {
+    font-size: 32px; /* Tamaño más grande para títulos principales */
+}
+
+h2 {
+    font-size: 28px; /* Tamaño intermedio para subtítulos principales */
+}
+
+h3 {
+    font-size: 24px; /* Tamaño menor para subtítulos secundarios */
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/pta\ joce\ 2.jpg'); 
+    background-position: center;
+    background-size: cover;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
+
+
+table {
+    width: 90%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #c6c6c6;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+thead {
+    background-color: #333;
+    color: white;
+}
+
+thead th {
+    padding: 15px;
+    font-size: 16px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+tbody td {
+    padding: 12px;
+    font-size: 14px;
+    color: #555;
+    text-align: left;
+}
+
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+a:hover {
+    background-color: #c4c4c4;
+    transform: scale(1.05);
+}
+
+a:active {
+    background-color: #fff;
+    transform: scale(0.95);
+}
+
+
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    thead th,
+    tbody td {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    a {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}

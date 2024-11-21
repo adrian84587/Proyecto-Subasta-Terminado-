@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Pujas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/historial.css') }}">
+
+</head>
+<body>
+    <h1>Historial de Pujas</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Puja</th>
+                <th>Usuario</th>
+                <th>Fecha y Hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for puja in historial %}
+                <tr>
+                    <td>{{ puja.producto_id }}</td> 
+                    <td>${{ puja.puja }}</td>
+                    <td>{{ puja.usuario }}</td>
+                    <td>{{ puja.fecha.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_panel') }}">Volver al Panel de Administración</a>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+
+</head>
+<body>
+    <h2>Panel de Administración</h2>
+    <h3>Lista de Productos en Subasta</h3>
+    
+    
+    <div class="products-container">
+        {% for producto in productos %}
+        <div class="product">
+            
+            <h3>{{ producto.nombre }}</h3>
+            <p>{{ producto.descripcion }}</p>
+            <p>Precio inicial: ${{ producto.precio_inicial }}</p>
+            <p>Precio actual: ${{ producto.precio_actual }}</p>
+            <p>Finaliza en: {{ producto.tiempo_fin }}</p>
+            
+            {% if producto.imagen %}
+            <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" alt="Imagen de {{ producto.nombre }}" style="max-width: 200px;">
+            {% else %}
+            <p>No hay imagen disponible.</p>
+            {% endif %}          
+         
+                <a href="{{ url_for('eliminar_producto', id=producto.id) }}"
+                    onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?')" class="eliminar-boton">
+                     Eliminar
+                </a>
+           
+        </div>
+        {% endfor %}
+    </div>
+</ul>
+<div class="button-container">
+    <a href="{{ url_for('historial') }}"class="logout-button">Ver Historial de Pujas</a>
+    <a href="{{ url_for('agregar_producto') }}"class="logout-button">Agregar Producto</a>
+    <a href="{{ url_for('logout') }}" class="logout-button2">Cerrar sesión</a>
+</div>
+</body>
+</html>
